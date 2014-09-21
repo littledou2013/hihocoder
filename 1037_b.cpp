@@ -17,7 +17,17 @@ int main(void)
 			scanf("%d", &award[i][j]);
 	for (int i = n - 2; i >= 0; --i)
 		for (int j = 0; j <= i; ++j)
+		/*注意：本人也不太清楚数组根据下标寻址的时间是否比较大，
+		但是好像用数先把数组寻址的数保存下来后再用，会比两次数组下标寻址块
+		如使用下面代码会快些：
+		left = award[i+1][j];//个人习惯将一些循环使用的变量放在循环之外声明，
+				    //这样可以减少程序新建一个变量然后又销毁的时间
+		right = award[i+1][j+1];
+		award[i][j] += (left > right ? left : right);
+		*/
+		
 			award[i][j] += (award[i + 1][j] > award[i + 1][j + 1] ? award[i + 1][j] : award[i + 1][j + 1]);
+
 	printf("%d\n", award[0][0]);
 	return 0;
 }
