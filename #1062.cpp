@@ -125,3 +125,60 @@ int main(void)
 	}
 	return 0;
 }
+
+/*
+ * 此方法是使用unordered_map来代替map提高查找效率
+ */
+#include <iostream>
+#include <cstdio>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+using namespace std;
+
+unordered_map<string, string> mp; //son -> father
+unordered_set<string> visit;
+void getNearestAnceser(string son1, string son2)
+{
+	visit.clear();
+	while (mp.find(son1) != mp.end())
+	{
+		visit.insert(son1);
+		son1 = mp[son1];
+	}
+	visit.insert(son1);
+	while (mp.find(son2) != mp.end())
+	{
+		if (visit.find(son2) != visit.end())
+			break; 
+		son2 = mp[son2];
+	}
+	if (visit.find(son2) == visit.end())
+		cout << -1 << endl;
+	else 
+		cout << son2 << endl;
+}
+int main(void)
+{
+	int n;
+	scanf("%d", &n);
+	/* 输入n对父子关系，建立深林树,不存在两个相同的名字
+	 * 由字符串来检索节点，说明字符串是每个节点的关键值
+	 * 
+	 */
+	string father, son;
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> father >> son;
+		mp.insert(make_pair(son, father));
+	}
+	int q;
+	scanf("%d", &q);
+	string son1, son2;
+	for (int i = 0; i < q; ++i)
+	{
+		cin >> son1 >> son2;
+		getNearestAnceser(son1, son2);
+	}
+	return 0;
+}
