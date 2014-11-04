@@ -1,5 +1,5 @@
 /*
- * 最近公共祖先三：将树转换为数组，然后使用MRQ-ST算法
+ * 最近公共祖先三：将树转换为数组，然后使用RMQ-ST算法
  */
 #include <iostream>
 #include <cstdio>
